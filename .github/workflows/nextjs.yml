@@ -40,11 +40,8 @@ jobs:
     - name: Build
       run: npm run build
     
-    - name: Export Next.js
-      run: npm run export
-    
     - name: Generate Tailwind CSS
-      run: npx tailwindcss -i ./styles/globals.css -o ./out/tailwind.css
+      run: npx tailwindcss -i ./app/globals.css -o ./out/tailwind.css
     
     - name: Prepare GitHub Pages
       run: |
