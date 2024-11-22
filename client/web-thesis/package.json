@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "next dev",
-    "build": "next build && npx tailwindcss build ./styles/globals.css -o ./public/tailwind.css",
+    "build": "next build && npx tailwindcss build ./client/web-thesis/app/globals.css -o ./public/tailwind.css",
     "start": "next start",
     "lint": "next lint",
     "export": "next export"
