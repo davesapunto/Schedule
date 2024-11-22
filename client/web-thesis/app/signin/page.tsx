@@ -21,11 +21,11 @@ export default function Home() {
   }
   return (
     <main className = "w-[100vw] h-[100vh]">
-        <div className = "w-[screen] h-[10vh] bg-[#95D2B3] flex items-center shadow-md">
+        <div className = "w-[screen] h-[10vh] bg-gradient-to-r from-green-500 via-emerald-500 to-teal-500 flex items-center shadow-md">
           <Link href = "/" className = "ml-8">Schedule Generator</Link>
         </div>
         <div className = "flex justify-center">
-          <div className = "mt-40 border border-black border-[1px] w-96 h-80 grid grid-rows-4 gap-0 justify-items-center rounded-md shadow-2xl bg-[#D8EFD3]">
+          <div className = "mt-40 border border-black border-[1px] w-96 h-80 grid grid-rows-4 gap-0 justify-items-center rounded-md shadow-2xl bg-gradient-to-r from-green-500 via-emerald-500 to-teal-500">
             <h1 className = "mt-8">Sign in</h1>
             <div className = "ml-20">
             </div>
