@@ -92,7 +92,7 @@ export default function ScheduleGenerator() {
 
             console.log("Sending data to server:", dataToSend);
 
-            const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/user`, {
+            const response = await fetch('http://127.0.0.1:5000/api/user', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

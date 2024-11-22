@@ -1,15 +1,21 @@
-import json
+from flask import Flask, jsonify, request
+from flask_cors import CORS
 import random, copy, logging
 from typing import List, Dict, Tuple
 import numpy as np
 import time
 import statistics
 
+app = Flask(__name__)
+CORS(app, resources={r"/*": {"origins": ["http://localhost:3000", "http://127.0.0.1:3000"]}})
+logging.basicConfig(level=logging.DEBUG)
 
 
-
-def handle_user(data):
+@app.route("/api/user", methods=['POST'])
+def handle_user():
     try:
+        data = request.json
+        app.logger.info(f"Parsed JSON data: {data}")
         user_data = data.get('userData')
         year_level = data.get('yearLevel')
         sem_year = data.get('semesterYear')
@@ -496,7 +502,7 @@ def handle_user(data):
 
             print(performance_stats, performance_details)
 
-            return({
+            return jsonify({
                 "message": "Schedules optimized successfully",
                 "hybridSchedule": hybrid_schedule,
                 "hybridScore": hybrid_score,
@@ -505,22 +511,8 @@ def handle_user(data):
             })
         
     except Exception as e:
-        return {"message": f"Server error: {str(e)}", "status": "error"}
+        app.logger.error(f"Error processing request: {str(e)}")
+        return jsonify({"message": f"Server error: {str(e)}", "status": "error"}), 500
 
-def handler(request, response):
-    if request.method == 'OPTIONS':
-        response.headers['Access-Control-Allow-Origin'] = '*'
-        response.headers['Access-Control-Allow-Methods'] = 'POST'
-        response.headers['Access-Control-Allow-Headers'] = 'Content-Type'
-        return '', 204
-
-    if request.method == 'POST':
-        try:
-            data = request.get_json()
-            result = handle_user(data)
-            response.headers['Access-Control-Allow-Origin'] = '*'
-            return json.dumps(result), 200
-        except Exception as e:
-            return json.dumps({"error": str(e)}), 500
-
-    return json.dumps({"error": "Method not allowed"}), 405
+if __name__ == "__main__":
+    app.run(debug=True, host='127.0.0.1', port=5000)
