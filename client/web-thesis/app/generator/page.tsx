@@ -135,15 +135,6 @@ export default function ScheduleGenerator() {
                         <h2 className="text-2xl font-bold mb-4">Generate Schedule</h2>
                         <div className="space-y-4">
                             <div>
-                                <label className="block mb-2">Full Name:</label>
-                                <input 
-                                    type="text" 
-                                    className="border border-gray-300 rounded p-2 w-full"
-                                    value={fullName}
-                                    onChange={(e) => setFullName(e.target.value)}
-                                />
-                            </div>
-                            <div>
                                 <label className="block mb-2">Year Level:</label>
                                 <input 
                                     type="text" 
