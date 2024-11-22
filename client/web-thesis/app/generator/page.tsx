@@ -116,12 +116,8 @@ export default function ScheduleGenerator() {
     if (loading) {
         return(
             <main className = "w-screen h-screen flex justify-center items-center">
-                <div>
-                    <button type="button" className="text-center" disabled>
-                        <svg className="animate-pulse h-10 w-28 mr-3" viewBox="0 0 24 24">
-                        </svg>
-                    Loading...
-                    </button>
+                <div className = "animate-pulse h-10 w-28 mr-3">
+                    Loading
                 </div>
             </main>
         )
@@ -161,7 +157,7 @@ export default function ScheduleGenerator() {
                                 <input
                                     type="text"
                                     className="border border-gray-300 rounded p-2 w-full"
-                                    placeholder="1"
+                                    placeholder={'1'}
                                     value={semesterYear}
                                     onChange={(e) => setSemesterYear(e.target.value)}
                                 />
@@ -206,7 +202,7 @@ export default function ScheduleGenerator() {
                                 <ScheduleTable schedule={scheduleData.psoSchedule} />
                             </div>
                         ) : (
-                            <p>No schedule generated yet. Fill out the form and click "Generate Schedule" to see results.</p>
+                            <p>No schedule generated yet. Fill out the form and click {"Generate Schedule"} to see results.</p>
                         )}
                     </div>
                 </div>
