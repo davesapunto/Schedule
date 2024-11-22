@@ -1,0 +1,67 @@
+name: Next.js CI/CD
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    defaults:
+      run:
+        working-directory: ./client/web-thesis
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Use Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18.x'
+        cache: 'npm'
+        cache-dependency-path: './client/web-thesis/package.json'
+    
+    - name: Cache Next.js build
+      uses: actions/cache@v4
+      with:
+        path: |
+          ${{ github.workspace }}/client/web-thesis/.next/cache
+        key: ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-nextjs-
+    
+    - name: Install Dependencies
+      run: npm ci
+      
+    - name: Build
+      run: npm run build
+      
+    - name: Prepare GitHub Pages
+      run: |
+        touch ./out/.nojekyll
+        if [ ! -f ./out/index.html ]; then
+          echo "<!DOCTYPE html><html><body>Site is under construction</body></html>" > ./out/index.html
+        fi
+      
+    - name: Upload artifact
+      uses: actions/upload-pages-artifact@v3
+      with:
+        path: ./client/web-thesis/out
+        
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    
+    permissions:
+      pages: write
+      id-token: write
+      
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+      
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
