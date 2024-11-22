@@ -4,7 +4,9 @@ const nextConfig = {
     images: {
       unoptimized: true
     },
-    trailingSlash: true
+    trailingSlash: true,
+    // Add this if you have dynamic routes or external data fetching
+    skipTrailingSlashRedirect: true
   }
   
   export default nextConfig
